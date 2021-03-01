@@ -1,6 +1,6 @@
 from pdfGestion.models import User, Pdf
 from jose import jwt
-from flask import g
+from pdfGestion.app import db
 
 def check_user(username):
     _id = get_id_from_username(username)
@@ -9,7 +9,7 @@ def check_user(username):
 
 
 def get_id_from_username(username):
-    _id = g.db.session.execute(f"Select u.id from users u where u.name = '{username}'").first()[0]
+    _id = db.session.execute(f"Select u.id from users u where u.name = '{username}'").first()[0]
     return _id
 
 

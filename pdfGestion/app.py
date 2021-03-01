@@ -1,12 +1,14 @@
 from flask import Flask, request, Response, g
 from flask_sqlalchemy import SQLAlchemy
 from pdfGestion import config
-from pdfGestion.src import sql
 
 app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
+
+from pdfGestion.src import sql
+from pdfGestion.src import authorization as auth
 
 @app.route('/login/', methods=['POST'])
 def check_user():
@@ -20,7 +22,16 @@ def check_user():
 
 
 @app.route('/pdf/', methods=['POST'])
-def create_pdf():
+def upload_pdf():
+    pass
+
+@app.route('/pdf/', methods=['GET'])
+def get_pdfs():
+    pass
+
+@app.route('/pdf/<id>/', methods=['DELETE'])
+@auth.check_permissions(['delete data'])
+def delete_pdfs(id):
     pass
 
 
