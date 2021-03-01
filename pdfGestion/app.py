@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, g
 from flask_sqlalchemy import SQLAlchemy
 from pdfGestion import config
 from pdfGestion.src import sql
@@ -14,10 +14,29 @@ def check_user():
     password = request.form.get('password')
     try:
         token = sql.check_loging(username=username, password=password)
-    except Exception as e:
-        print(e)
-        e
+    except TypeError as e:
+        return Response(response="User not exist", status=400)
     return Response(response=token, status=200)
+
+
+@app.route('/pdf/', methods=['POST'])
+def create_pdf():
+    pass
+
+
+@app.before_request
+def before_request():
+    if request.path in ['/login/']:
+        pass
+    else:
+        user_token = request.headers.get('Authorization')
+        if not user_token:
+            raise FileNotFoundError(message='No token', status_code=401)
+        else:
+            user = sql.decode_token(user_token)
+            g.role = user['profile']
+            g.token = user_token
+            g.permissions = user['permissions']
 
 
 if __name__ == '__main__':

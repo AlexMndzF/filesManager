@@ -1,5 +1,5 @@
 from flask_script import Manager
-from pdfGestion.app import app, db
+from pdfGestion.app import app
 from pdfGestion.models import *
 
 manager = Manager(app)

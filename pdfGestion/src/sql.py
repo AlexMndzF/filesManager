@@ -1,16 +1,17 @@
 from pdfGestion.models import User, Pdf
 from jose import jwt
-from pdfGestion.app import db
-
+from flask import g
 
 def check_user(username):
     _id = get_id_from_username(username)
     user = User.query.get(_id)
     return user
 
+
 def get_id_from_username(username):
-    _id = db.session.execute('Select u.id from users u').first()[0]
+    _id = g.db.session.execute(f"Select u.id from users u where u.name = '{username}'").first()[0]
     return _id
+
 
 def generate_token(user):
     secret = 'amf1234'
