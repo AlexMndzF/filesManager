@@ -1,5 +1,6 @@
 from flask_script import Manager
-from pdfGestion.app import app
+
+from pdfGestion.settings import app
 from pdfGestion.models import *
 
 manager = Manager(app)
@@ -10,12 +11,14 @@ app.config['DEBUG'] = True  # Ensure debugger will load.
 def create_tables():
     "Create relational database tables."
     db.create_all()
+    print("Tables created!")
 
 
 @manager.command
 def drop_tables():
     "Drop all project relational database tables. THIS DELETES DATA."
     db.drop_all()
+    print("Tables deleted!")
 
 
 @manager.command
@@ -26,7 +29,9 @@ def add_data_tables():
 
     db.session.add(user_admin)
     db.session.commit()
+    print("Admin added!")
     db.session.add(user_user)
+    print("User added!")
     db.session.commit()
 
 

@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy import DateTime,  Text, Float
 from sqlalchemy.orm import relationship
 
-from pdfGestion.app import db
+from pdfGestion.settings import db
 
 
 class User(db.Model):
@@ -21,6 +21,6 @@ class Pdf(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False)
     weigth = Column(Float, nullable=False)
-    has = Column(String, nullable=False)
+    hash = Column(String, nullable=False)
     upload_date = Column(DateTime, nullable=False)
-    status = Column(Boolean, nullable=False, default=True)
+    path = Column(String(100), nullable=False)

@@ -1,6 +1,7 @@
 from pdfGestion.models import User, Pdf
 from jose import jwt
-from pdfGestion.app import db
+from pdfGestion.settings import db
+
 
 def check_user(username):
     _id = get_id_from_username(username)
@@ -41,3 +42,23 @@ def check_loging(username, password):
         return token
     else:
         return 'Invalid password'
+
+
+def insert_document(file):
+    # file = Pdf(name=file['name'], weigth=file['weigth'],hash=file['hash'], upload_date=file['upload_date'], path=file['path'])
+    query = f""" INSERT INTO pdfs
+                ('name', weigth, hash, upload_date, 'path')
+                VALUES(?,? , ?, ?,?);
+                """
+    # [str(file['name']),float(file['weigth']),str(file['hash']),file['upload_date'],str(file['path'])]
+    db.session.execute(query, file )
+    db.session.commit()
+    return 200
+
+"""__tablename__ = 'pdfs'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    weigth = Column(Float, nullable=False)
+    hash = Column(String, nullable=False)
+    upload_date = Column(DateTime, nullable=False)
+    path = Column(String(100), nullable=False)"""
