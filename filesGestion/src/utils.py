@@ -1,5 +1,7 @@
 import hashlib
 
+from jose import jwt
+
 
 def has_file(file_path):
     file = file_path
@@ -12,3 +14,17 @@ def has_file(file_path):
             fb = f.read(BLOCK_SIZE)  # Read the next block from the file
         print(file_hash.hexdigest())  # Get the hexadecimal digest of the hash
     return file_hash.hexdigest()
+
+
+def generate_token(user):
+    secret = 'amf1234'
+    algorithm = 'HS256'
+    token = jwt.encode(user, secret, algorithm)
+    return token
+
+
+def decode_token(token):
+    secret = 'amf1234'
+    algorithm = 'HS256'
+    user = jwt.decode(token, secret, algorithm)
+    return user

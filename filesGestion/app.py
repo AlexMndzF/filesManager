@@ -5,8 +5,12 @@ import ujson
 from flask import request, Response, g, redirect
 from werkzeug.utils import secure_filename
 
+import filesGestion.src.conectors.files
+import filesGestion.src.conectors.users
+import filesGestion.src.utils
 from filesGestion import settings as st
 from filesGestion.settings import app
+from filesGestion.src.conectors.users import check_login
 from filesGestion.src import sql, authorization as auth, utils as u
 
 
@@ -15,7 +19,7 @@ def check_user():
     username = request.form.get('username')
     password = request.form.get('password')
     try:
-        token = sql.check_loging(username=username, password=password)
+        token = check_login(username=username, password=password)
     except TypeError as e:
         return Response(response="User not exist", status=400)
     return Response(response=token, status=200)
@@ -65,7 +69,7 @@ def upload_file_get():
 
 @app.route('/files/', methods=['GET'])
 def get_files():
-    result = sql.get_files()
+    result = filesGestion.src.conectors.files.get_files()
     result = {'files': result}
     return Response(response=ujson.dumps(result), status=200, mimetype='application/json')
 
@@ -73,7 +77,7 @@ def get_files():
 @auth.check_permissions(['delete data'])
 def delete_file(_id):
     try:
-        sql.delete_file(_id)
+        filesGestion.src.conectors.files.delete_file(_id)
     except FileNotFoundError:
         error = {'error': 'File not found'}
         return Response(response=ujson.dumps(error), status=404)
@@ -88,7 +92,7 @@ def before_request():
         if not user_token:
             raise FileNotFoundError(message='No token', status_code=401)
         else:
-            user = sql.decode_token(user_token)
+            user = u.decode_token(user_token)
             g.role = user['profile']
             g.token = user_token
             g.permissions = user['permissions']
