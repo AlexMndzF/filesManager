@@ -1,6 +1,6 @@
-from filesGestion.models import User
-from filesGestion.src.sql import get_id_from_username
-from filesGestion.src.utils import generate_token
+from filesManager.models import User
+from filesManager.src.sql import get_id_from_username
+from filesManager.src.utils import generate_token
 
 
 def check_login(username, password):
@@ -15,8 +15,8 @@ def check_login(username, password):
         }
         token = generate_token(user)
         return token
-    else:
-        return 'Invalid password'
+    token = None
+    return token
 
 
 def check_user(username):

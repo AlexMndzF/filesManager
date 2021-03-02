@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Files</h1>
+    <form class="form_but"  action="/files/upload/" method="post" enctype="multipart/form-data">
+                <label class="but_red" for="file"> <p class="lc">Select file</p></label>
+                <input id="file" class="inputfile" type="file" name="upload" />
+                <label class="but_red" for="upload"> <p class="lc">Upload</p></label>
+                <input class="inputfile" id="upload" type="submit"/>
+              </form>
+    <table>
+<TR>
+    <TH>Id</TH>
+    <TH>Name</TH>
+    <TH>hash</TH>
+    <TH>Upload date</TH>
+    <TH>Download</TH>
+    <TH>Delete</TH>
+
+</TR>
+{% for item in items %}
+<TR>
+    <TD>{{item.id}}</TD>
+    <TD>{{item.name}}</TD>
+    <TD>{{item.hash}}</TD>
+    <TD>{{item.upload_date}}</TD>
+    <TD><a href="/files/{{ item.id }}/" >⬇️</a></TD>
+    <TD></TD>
+</TR>
+
+{% endfor %}
+</table>
+{% endblock %}
+{% block footer %}
+     <a href="/logout/" >logout</a>
+{% endblock %}

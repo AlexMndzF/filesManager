@@ -1,8 +1,6 @@
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
-from sqlalchemy import DateTime,  Text, Float
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, DateTime,  Float
 
-from filesGestion.settings import db
+from filesManager.settings import db
 
 
 class User(db.Model):

@@ -1,5 +1,5 @@
-from filesGestion.models import File
-from filesGestion.settings import db
+from filesManager.models import File
+from filesManager.settings import db
 
 
 def get_id_from_username(username):

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>{{ error.get('code') }}</h1>
+    <h3>Error: {{ error.get('error') }}</h3>
+    <a href="/files/">Files</a>
+    <a href="/files/upload/">Upload form</a>
+    <a href="/">Home</a>
+{% endblock %}
