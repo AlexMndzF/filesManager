@@ -1,12 +1,13 @@
 import datetime
 import os
+import ujson
 
-from flask import request, Response, g
+from flask import request, Response, g, redirect
 from werkzeug.utils import secure_filename
 
-from pdfGestion import settings as st
-from pdfGestion.settings import app
-from pdfGestion.src import sql, authorization as auth, utils as u
+from filesGestion import settings as st
+from filesGestion.settings import app
+from filesGestion.src import sql, authorization as auth, utils as u
 
 
 @app.route('/login/', methods=['POST'])
@@ -20,7 +21,7 @@ def check_user():
     return Response(response=token, status=200)
 
 
-@app.route('/pdf/upload/', methods=['POST'])
+@app.route('/files/upload/', methods=['POST'])
 def upload_file():
     upload = request.files.get('upload')
     if not upload or upload.filename == '':
@@ -47,13 +48,13 @@ def upload_file():
         sql.insert_document(file_to_upload)
     except Exception as e:
         e
-    return Response(response='', status=200)
+    return Response(response='File uploaded!', status=200)
 
 
-@app.route('/pdf/upload/', methods=['GET'])
-def upload_pdfs_get():
+@app.route('/files/upload/', methods=['GET'])
+def upload_file_get():
     return """
-        <form class="form_but"  action="/pdf/upload/" method="post" enctype="multipart/form-data">
+        <form class="form_but"  action="/files/upload/" method="post" enctype="multipart/form-data">
                 <label class="but_red" for="file"> <p class="lc">Select file</p></label>
                 <input id="file" class="inputfile" type="file" name="upload" />
                 <label class="but_red" for="upload"> <p class="lc">Upload</p></label>
@@ -62,17 +63,23 @@ def upload_pdfs_get():
         """
 
 
-@app.route('/pdf/', methods=['GET'])
-def get_pdfs():
-    pass
+@app.route('/files/', methods=['GET'])
+def get_files():
+    result = sql.get_files()
+    result = {'files': result}
+    return Response(response=ujson.dumps(result), status=200, mimetype='application/json')
 
-
-@app.route('/pdf/<id>/', methods=['DELETE'])
+@app.route('/files/<_id>/', methods=['DELETE'])
 @auth.check_permissions(['delete data'])
-def delete_pdfs(id):
-    pass
+def delete_file(_id):
+    try:
+        sql.delete_file(_id)
+    except FileNotFoundError:
+        error = {'error': 'File not found'}
+        return Response(response=ujson.dumps(error), status=404)
+    return redirect('/files/')
 
-# @app.before_request
+@app.before_request
 def before_request():
     if request.path in ['/login/']:
         pass

@@ -1,6 +1,7 @@
-from pdfGestion.models import User, Pdf
+from filesGestion.models import User, File
 from jose import jwt
-from pdfGestion.settings import db
+from filesGestion.settings import db
+from filesGestion.src.conectors.files import remove_file
 
 
 def check_user(username):
@@ -45,20 +46,34 @@ def check_loging(username, password):
 
 
 def insert_document(file):
-    # file = Pdf(name=file['name'], weigth=file['weigth'],hash=file['hash'], upload_date=file['upload_date'], path=file['path'])
-    query = f""" INSERT INTO pdfs
-                ('name', weigth, hash, upload_date, 'path')
-                VALUES(?,? , ?, ?,?);
-                """
-    # [str(file['name']),float(file['weigth']),str(file['hash']),file['upload_date'],str(file['path'])]
-    db.session.execute(query, file )
+    file = File(name=file['name'], weigth=file['weigth'], hash=file['hash'], upload_date=file['upload_date'],
+                path=file['path'])
+
+    db.session.add(file)
     db.session.commit()
     return 200
 
-"""__tablename__ = 'pdfs'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(100), nullable=False)
-    weigth = Column(Float, nullable=False)
-    hash = Column(String, nullable=False)
-    upload_date = Column(DateTime, nullable=False)
-    path = Column(String(100), nullable=False)"""
+
+def get_files():
+    result = File.query.all()
+    files = []
+    for e in result:
+        file = {
+            'id': e.id,
+            'name': e.name,
+            'size': e.weigth,
+            'hash': e.hash,
+            'upload_date': e.upload_date.strftime("%m/%d/%Y, %H:%M"),
+            'path': e.path
+        }
+        files.append(file)
+    return files
+
+
+def delete_file(_id):
+    file = File.query.get(_id)
+    if not file:
+        raise FileNotFoundError
+    remove_file(file.path)
+    db.session.delete(file)
+    db.session.commit()

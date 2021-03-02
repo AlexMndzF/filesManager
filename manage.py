@@ -1,7 +1,7 @@
 from flask_script import Manager
 
-from pdfGestion.settings import app
-from pdfGestion.models import *
+from filesGestion.settings import app
+from filesGestion.models import *
 
 manager = Manager(app)
 app.config['DEBUG'] = True  # Ensure debugger will load.
