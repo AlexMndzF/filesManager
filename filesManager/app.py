@@ -60,7 +60,7 @@ def get_files():
     return render_template('table.html', items=result['files'])
 
 
-@app.route('/files/<_id>/', methods=['DELETE'])
+@app.route('/files/<_id>/delete/')
 @auth.check_permissions(['delete data'])
 def delete_file(_id):
     try:

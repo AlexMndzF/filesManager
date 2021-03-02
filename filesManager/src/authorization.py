@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import g, Response
+from flask import g, render_template
 
 
 def check_permissions(permissions):
@@ -11,7 +11,8 @@ def check_permissions(permissions):
         def func_wrapper(*args, **kwargs):
             user_token = g.token
             if not user_token:
-                return Response(response='Sin token de autorizacion', status=403)
+                error = {'error': 'No token provided', 'code': 403}
+                return render_template('error.html', error=error)
             elif g.role == 'admin':
                 return func(*args, **kwargs)
             else:
@@ -21,7 +22,8 @@ def check_permissions(permissions):
                 for permission in permissions:
                     allowed = allowed or perm[permission]
                 if not allowed:
-                    return Response(response='No autorizado', status=403)
+                    error = {'error': 'Not authorized', 'code': 403}
+                    return render_template('error.html', error=error)
             return func(*args, **kwargs)
         return func_wrapper
     return check_permissions_decorator
