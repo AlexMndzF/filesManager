@@ -4,15 +4,16 @@
 
 1.Install requirements: <br>
 ```
-python -m pip install -r filesManager/requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-2.Make sure the folder is created: <br>
+2.Create the folder: <br>
 ```
 Windows: C:\SGDF
 Ubuntu/Mac: /opt/SGDF
 ```
-(*)for ubuntu execute: ```sudo mkdir /opt/SGDF```
+* 2.1.For ubuntu/Mac execute: ```sudo mkdir /opt/SGDF```
+* 2.2.Ubuntu/Mac needs special permissions through the folder, execute: ```sudo chmod 777 /opt/SGDF```
 
 3.Drop tables: <br>
 ```
