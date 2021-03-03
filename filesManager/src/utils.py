@@ -3,6 +3,7 @@ import hashlib
 from jose import jwt
 
 
+
 def has_file(file_path):
     file = file_path
     BLOCK_SIZE = 65536  # The size of each read from the file

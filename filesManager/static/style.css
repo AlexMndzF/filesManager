@@ -1,0 +1,124 @@
+body {
+  background: #eee;
+  -webkit-font-smoothing: antialiased;
+    font-family: "Montserrat";
+        margin:auto;
+
+}
+
+/*------------------------------------------------------------------
+[ Navbar ]*/
+
+nav ul {
+    list-style: none;
+    margin-block: 0px;
+}
+
+nav ul li {
+  display: block;
+  position: relative;
+  float: left;
+  background-color: #9e8c7b;
+}
+
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 7px 15px 7px 15px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 18px;
+  color: black;
+}
+
+nav ul li a:hover {
+  background-color: #916439;
+}
+
+.logOut{
+    border: none;
+    padding: 7px 15px 7px 15px;
+    font-size: 18px;
+    background-color: #9e8c7b;
+    font-family: "Montserrat";
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    border-style: solid;
+    border-top: 3px #9e8c7b solid;
+    border-bottom: 1px #bbb solid;
+    border-left: none;
+    border-right: none;
+    background-color: #9e8c7b;
+}
+.div_logout{
+    display: block;
+    position: relative;
+    align-self: center;
+    margin-block: 0px;
+}
+nav div button:hover {
+  background-color: #916439;
+}
+
+
+/*------------------------------------------------------------------
+[ Table ]*/
+table {
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+}
+ th {
+  background: #9e8c7b;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background: #efefef;
+}
+
+tr:hover {
+  background: #d1d1d1;
+}
+
+.form_upload_div{
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+    align-content: center;
+}
+
+.form_upload{
+    display: flex;
+    justify-content: center;
+}
+.table_div{
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+    align-content: center;
+
+}
+footer {
+    background: #1A1E25;
+    color: #868c96;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    padding: 40px 0;
+    text-align: center;
+}
+
+
+
+
+
+
+
