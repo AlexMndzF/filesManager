@@ -1,21 +1,32 @@
-# pdfTool
+# File Manager
 
-### First steps:
+### Run steps:
 
-1. Drop tables:
-    ``python manage.py drop_tables```
-2. Create tables :
-    ```python manage.py create_tables```
-3. Insert users data:
-    ```python manage.py add_data_tables```
-4. Run server:
-   ```python manage.py runserver -h 0.0.0.0 -p 8080```
-   
-### Backend Spec:
+1.Install requirements: <br>
+```
+python -m pip install -r filesManager/requirements.txt
+```
 
-The application has 4 endpoints:
+2.Make sure the folder is created: <br>
+```
+Windows: C:\SGCF
+Ubuntu/Mac: /opt/SGCF
+```
 
-1. /login/ => Receive the user and password through form, returns a valid token
-2. /pdf/ (POST) =>  Endpoint to post a pdf.
-3. /pdf/ (GET) => Returns all pdf available on database and not erased (stratus= True).
-4. /pdf/\<id>/ (DELETE) => Delete the file of a pdf if the user has permissions, on databse this action only put status= False
+3.Drop tables: <br>
+```
+python manage.py drop_tables
+```
+
+4. Create tables: <br>
+```
+python manage.py create_tables
+```
+5. Insert users data: <br>
+```
+python manage.py add_data_tables
+```
+6. Run server: <br> 
+```
+python manage.py runserver -h 0.0.0.0 -p 8080
+```
