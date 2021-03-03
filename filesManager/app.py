@@ -5,6 +5,9 @@ import filesManager.src.utils
 from filesManager.settings import app
 from filesManager.src.conectors.users import check_login
 from filesManager.src import authorization as auth, utils as u
+from flask_paginate import Pagination, get_page_parameter
+
+from filesManager.src.exceptions import FileAlreadyInPath
 
 
 @app.route('/', methods=['GET'])
@@ -44,9 +47,13 @@ def upload_file():
         return redirect('/files/')
     try:
         files.upload_file(upload)
+    except FileAlreadyInPath:
+        error = {'error': 'File already exist', 'code': 409}
+        return render_template('error.html', error=error, navBar=True)
     except Exception as e:
         error = {'error': e.args, 'code': ""}
         return render_template('error.html', error=error, navBar=True)
+
 
     return redirect('/files/')
 
@@ -55,7 +62,10 @@ def upload_file():
 def get_files():
     result = filesManager.src.conectors.files.get_files()
     result = {'files': result}
-    return render_template('table.html', items=result, navBar=True)
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    pagination = Pagination(page=page, total=len(result['files']), search=False)
+
+    return render_template('table.html', items=result, navBar=True, pagination=pagination)
 
 
 @app.route('/files/<_id>/', methods=['DELETE'])

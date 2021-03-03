@@ -8,11 +8,14 @@ from filesManager.settings import UPLOAD_FOLDER
 from filesManager.settings import db
 from filesManager.src import utils as u
 from filesManager.src import sql
+from filesManager.src.exceptions import FileAlreadyInPath
 
 
 def upload_file(upload_file):
     filename = secure_filename(upload_file.filename)
     file = os.path.join(UPLOAD_FOLDER, filename)
+    if os.path.isfile(file):
+        raise FileAlreadyInPath()
     upload_file.save(file)
     has_file = u.has_file(file)
     size = os.stat(file).st_size

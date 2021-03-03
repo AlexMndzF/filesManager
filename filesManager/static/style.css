@@ -5,7 +5,9 @@ body {
         margin:auto;
 
 }
-
+html{
+    scroll-behavior: smooth;
+}
 /*------------------------------------------------------------------
 [ Navbar ]*/
 
@@ -69,6 +71,7 @@ table {
     border-collapse: collapse;
     display: flex;
     justify-content: center;
+    overflow: auto;
 }
  th {
   background: #9e8c7b;
@@ -109,6 +112,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    visibility: hidden;
 }
 
 footer p {

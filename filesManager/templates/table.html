@@ -6,26 +6,26 @@
     <input type="submit" value="Upload file" name="submit">
 </form>
     </div>
-    <div class="table_div">
-        <table>
-        <TR>
-        <TH>Id</TH>
-        <TH>Name</TH>
-        <TH>hash</TH>
-        <TH>Upload date</TH>
-        <TH>Size</TH>
-        <TH>Download</TH>
-        {% if g.role=='admin' %}
-        <TH>Delete</TH>
-        {% endif %}
-    </TR>
-        </table>
-    </div>
+        <div class="table_div">
+            <table id="myTable">
+                <TR>
+                    <TH>Id</TH>
+                    <TH>Name</TH>
+                    <TH>hash</TH>
+                    <TH>Upload date</TH>
+                    <TH>Size</TH>
+                    <TH>Download</TH>
+                    {% if g.role=='admin' %}
+                    <TH>Delete</TH>
+                    {% endif %}
+                </TR>
+            </table>
+        </div>
+      </div>
     <script type="application/javascript">
     $(document).ready(function() {
    // DRAW SOME ROWS FOR THIS TEST TABLE
         const items ={{ items|tojson }}
-
    for (let i = 0; i < items.files.length; i++) {
        let html =   '<tr>'
             html +=     '<td>'
