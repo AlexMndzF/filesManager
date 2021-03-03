@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="form_upload_div">
+    <form action="/files/upload/" method="post" enctype="multipart/form-data" class="form_upload">
+    <input type="file" name="upload" >
+    <input type="submit" value="Upload file" name="submit">
+</form>
+    </div>
+        <div class="table_div">
+            <table id="myTable">
+                <TR>
+                    <TH>Id</TH>
+                    <TH>Name</TH>
+                    <TH>hash</TH>
+                    <TH>Upload date</TH>
+                    <TH>Size</TH>
+                    <TH>Download</TH>
+                    {% if g.role=='admin' %}
+                    <TH>Delete</TH>
+                    {% endif %}
+                </TR>
+            </table>
+        </div>
+      </div>
+    <script type="application/javascript">
+    $(document).ready(function() {
+   // DRAW SOME ROWS FOR THIS TEST TABLE
+        const items ={{ items|tojson }}
+   for (let i = 0; i < items.files.length; i++) {
+       let html =   '<tr>'
+            html +=     '<td>'
+            html +=         items.files[i].id
+            html +=     '</td>'
+            html +=     '<td>'
+            html +=         items.files[i].name
+            html +=     '</td>'
+            html +=     '<td>'
+            html +=         items.files[i].hash
+            html +=     '</td>'
+            html +=     '<td>'
+            html +=         items.files[i].upload_date
+            html +=     '</td>'
+            html +=     '<td>'
+            html +=         items.files[i].size
+            html +=     '</td>'
+            html +=     '<td>'
+            html +=         '<a href="/files/'+items.files[i].id+'/" >⬇️</a>'
+            html +=     '</td>'
+            {% if g.role=='admin' %}
+            html +=     '<td>'
+            html +=         '<button class="deleteButton" id="'+items.files[i].id+'">❌</button>'
+            html +=     '</td>'
+            {% endif %}
+            html += '</tr>'
+      $('table').append(html)
+   }
+    function deleteFile(id){
+             fetch('/files/'+id+'/', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+
+
+        });
+        }
+
+   // WHEN DELETE BUTTON IS CLICKED REMOVE THE TABLE ROW
+   $(document).on('mousedown', '.deleteButton', function(){
+         deleteFile(this.id)
+       console.log($('.deleteButton').index(this));
+         $('tr').eq($('.deleteButton').index(this)+1).remove();
+
+   })
+})
+
+    </script>
+{% endblock %}

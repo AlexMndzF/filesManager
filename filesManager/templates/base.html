@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>{% block title %}{% endblock %} File Manager</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body>
+        {% if navBar %}
+              <nav>
+                <ul>
+                  <li><a href="/files/">Files</a></li>
+                  <li><a href="/">Home</a></li>
+                </ul>
+              <div class="div_logout">
+                  {% if g.role %}
+                        <button class="logOut" onclick="logOut()">Log out</button>
+
+                        <script type="application/javascript">
+                        async function logOut(){
+                                await fetch('/logout/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json'
+                                }
+                            }).then(window.location.replace('/'));
+                            }
+                        </script>
+            {% endif %}
+              </div>
+              </nav>
+        {% endif %}
+
+    <div id="content">{% block content %}{% endblock %}</div>
+    {% block footer %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block head %}
+    <style type="text/css">
+body {
+  background: #eee;
+  -webkit-font-smoothing: antialiased;
+    font-family: "Montserrat";
+        margin:auto;
+
+}
+
+hgroup {
+  text-align:center;
+  margin-top: 4em;
+}
+nav ul {
+    list-style: none;
+    margin-block: 0px;
+}
+
+nav ul li {
+  display: block;
+  position: relative;
+  float: left;
+  background-color: #9e8c7b;
+}
+
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 7px 15px 7px 15px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 18px;
+  color: black;
+}
+
+nav ul li a:hover {
+  background-color: #916439;
+}
+
+.logOut{
+    border: none;
+    padding: 7px 15px 7px 15px;
+    font-size: 18px;
+    background-color: #9e8c7b;
+    font-family: "Montserrat";
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    border-style: solid;
+    border-top: 3px #9e8c7b solid;
+    border-bottom: 1px #bbb solid;
+    border-left: none;
+    border-right: none;
+    background-color: #9e8c7b;
+}
+.div_logout{
+    display: block;
+    position: relative;
+    align-self: center;
+    margin-block: 0px;
+}
+nav div button:hover {
+  background-color: #916439;
+}
+}
+footer {
+    background: #1A1E25;
+    color: #868c96;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    padding: 40px 0;
+    text-align: center;
+}
+nav ul li a:hover {
+  background-color: #916439;
+}
+nav{
+    background-color: #9e8c7b;
+}
+
+
+    </style>
+{% endblock %}
+{% block content %}
+    <hgroup>
+        <h1 style="font-size: 25vh">{{ error.get('code') }}</h1>
+        <p>Error: {{ error.get('error') }}</p>
+    </hgroup>
+
+{% endblock %}
