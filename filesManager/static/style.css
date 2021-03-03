@@ -107,17 +107,15 @@ tr:hover {
 
 }
 footer {
-    background: #1A1E25;
-    color: #868c96;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    visibility: hidden;
+  background: #1A1E25;
+  color: #868c96;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 footer p {
-    padding: 40px 0;
-    text-align: center;
+  text-align: center;
 }
 
 
