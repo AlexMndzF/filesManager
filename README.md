@@ -9,9 +9,10 @@ python -m pip install -r filesManager/requirements.txt
 
 2.Make sure the folder is created: <br>
 ```
-Windows: C:\SGCF
-Ubuntu/Mac: /opt/SGCF
+Windows: C:\SGDF
+Ubuntu/Mac: /opt/SGDF
 ```
+(*)for ubuntu execute: ```sudo mkdir /opt/SGDF```
 
 3.Drop tables: <br>
 ```
