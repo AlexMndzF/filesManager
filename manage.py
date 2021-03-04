@@ -23,9 +23,15 @@ def drop_tables():
 
 @manager.command
 def add_data_tables():
+    admin_password = input('Set admin password:')
+    user_password = input('Set user password:')
+    if not admin_password:
+        admin_password='admin'
+    if not user_password:
+        user_password='user'
     db.create_all()
-    user_admin = User(name='admin', password='admin', profile='admin', permissions='delete data')
-    user_user = User(name='user', password='user', profile='user', permissions='view data')
+    user_admin = User(name='admin', password=admin_password, profile='admin', permissions='delete data')
+    user_user = User(name='user', password=user_password, profile='user', permissions='view data')
 
     db.session.add(user_admin)
     db.session.commit()

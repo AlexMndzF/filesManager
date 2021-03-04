@@ -1,9 +1,13 @@
 from filesManager.models import File
 from filesManager.settings import db
+from filesManager.src.exceptions import UserNotExistException
 
 
 def get_id_from_username(username):
-    _id = db.session.execute(f"Select u.id from users u where u.name = '{username}'").first()[0]
+    try:
+        _id = db.session.execute(f"Select u.id from users u where u.name = '{username}'").first()[0]
+    except TypeError:
+        raise UserNotExistException()
     return _id
 
 

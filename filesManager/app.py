@@ -7,7 +7,7 @@ from filesManager.src.conectors.users import check_login
 from filesManager.src import authorization as auth, utils as u
 from flask_paginate import Pagination, get_page_parameter
 
-from filesManager.src.exceptions import FileAlreadyInPath
+from filesManager.src.exceptions import FileAlreadyInPath, InvalidPasswordException, UserNotExistException
 
 
 @app.route('/', methods=['GET'])
@@ -24,8 +24,11 @@ def check_user():
     password = request.form.get('password')
     try:
         token = check_login(username=username, password=password)
-    except TypeError:
+    except UserNotExistException:
         error = {'error': 'User not exist', 'code': 400}
+        return render_template('error.html', error=error, navBar=True)
+    except InvalidPasswordException:
+        error = {'error': 'Invalid password', 'code': 400}
         return render_template('error.html', error=error, navBar=True)
     if not token:
         error = {'error': 'Invalid user or password', 'code': 401}

@@ -28,7 +28,23 @@ python manage.py create_tables
 ```
 python manage.py add_data_tables
 ```
+* The script allows you to enter another password for admin or user. You can skip this by pressing enter, the defaults users and passwords are:
+    ````
+  User: admin -> Password: admin
+  User: user -> Password: user
+  ````
 6. Run server: <br> 
 ```
 python manage.py runserver -h 0.0.0.0 -p 8080
+```
+
+## Test:
+
+1. Run the command:
+```
+python -m unittest
+```
+2. Drop the tables:
+```
+python manage.py drop_tables
 ```

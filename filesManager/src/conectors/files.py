@@ -28,6 +28,7 @@ def upload_file(upload_file):
     }
     sql.insert_document(file_to_upload)
 
+
 def remove_file(path):
     if os.path.isfile(path):
         os.remove(path)
